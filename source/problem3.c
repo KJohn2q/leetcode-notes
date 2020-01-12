@@ -20,13 +20,14 @@ int lengthOfLongestSubstring(char * s){
 		longestlength = 1;
 	}
 	
-	while(*s++ != '\0') {
+	while(*++s != '\0') {
 		p = base;
-		while(*p++ != '\0') {
+		while(*p != '\0') {
 			if (*p == *s) {
 				*temp = '\0';
 				break;
 			}
+			p++;
 		}
 		if (*temp == '\0') {
 			free(base);
@@ -39,9 +40,11 @@ int lengthOfLongestSubstring(char * s){
 		}
 		else {
 			base = (char *) realloc(base, (++nowsize)*sizeof(char));
+			temp = base;
 			*++temp = *s;
-			++i;
-		} 
+			*(temp+1) = '\0';
+			++i;		
+		} 	
 		longestlength = i > longestlength ? i : longestlength;
 	} 
 
@@ -51,7 +54,7 @@ int lengthOfLongestSubstring(char * s){
 int main(void) 
 {
 	int l;
-	char* s = "a";
+	char* s = "abcabcbb";
 	
 	l = lengthOfLongestSubstring(s);
 	
