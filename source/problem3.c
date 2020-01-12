@@ -3,7 +3,7 @@
 
 int lengthOfLongestSubstring(char * s){
 	int longestlength = 0;  // 最长子串的长度 
-	int i = 0;
+	int i = 1;
 	char *temp; // 存储子串 
 	char *p;
 	char *base;
@@ -20,22 +20,22 @@ int lengthOfLongestSubstring(char * s){
 		longestlength = 1;
 	}
 	
-	while(*++s != '\0') {
+	while(*s++ != '\0') {
 		p = base;
 		while(*p != '\0') {
 			if (*p == *s) {
-				*temp = '\0';
+//				*temp = '\0';
 				break;
 			}
 			p++;
 		}
-		if (*temp == '\0') {
+		if (*p != '\0') {
 			free(base);
 			base = (char *)malloc(2*sizeof(char));
 			temp = base;
 			*temp = *s;
 			*(temp+1) = '\0'; 
-			i = 0;  // 重新计数
+			i = 1;  // 重新计数
 			nowsize = 2; 
 		}
 		else {
