@@ -2,61 +2,41 @@
 #include <stdlib.h> 
 
 int lengthOfLongestSubstring(char * s){
-	int longestlength = 0;  // 最长子串的长度 
-	int i = 1;
-	char *temp; // 存储子串 
-	char *p;
-	char *base;
-	int nowsize = 0;
+	int longestLength = 1;
+	int i = 0, j = 1;
 	
-	if (*s == '\0') {
-		return 0;
-	} 
-	
-	temp = (char *)malloc(2*sizeof(char));
-	
-	*temp = *s; // *temp存储s的第一个字符 
-	*(temp+1) = '\0';
-	base = temp;
-	nowsize = 2;
-	longestlength = i;
-	
-	while(*++s != '\0') {
-		p = base;
-		while(*p != '\0') {
-			if (*p == *s) {
-//				*temp = '\0';	
-				break;
-			}
-			p++;
+	if (s == NULL || *s == '\0')
+        return 0;
+     
+    while (s[j] != '\0') {
+        // check if s[j] is in substring
+        int k = i;
+        while (k < j) {
+            if(s[k] == s[j])
+                break;
+            k++;
+        }
+        // if we found a duplicate letter at index k
+        if (k != j) {
+            // we reached the end of the substring
+            longestLength = j-i > longestLength ? j-i : longestLength;
+            // next substring start at k+1
+            // and is one character long
+            i = k+1;
+            j = i;
+        }
+        else {
+        	longestLength = j - i + 1 > longestLength ? j - i + 1 : longestLength ; 
 		}
-		if (*p != '\0') {
-			free(base);
-			base = (char *)malloc(2*sizeof(char));
-			temp = base;
-			*temp = *s;
-			*(temp+1) = '\0'; 
-			i = 1;  // 重新计数
-			nowsize = 2; 
-		}
-		else {
-			base = (char *) realloc(base, (++nowsize)*sizeof(char));
-			temp = base + nowsize - 2;
-			*temp = *s;
-			*(temp+1) = '\0';
-			temp++;
-			++i;		
-		} 	
-		longestlength = i > longestlength ? i : longestlength;
-	} 
-
-	return longestlength;
+        j++;
+    }
+    return longestLength;
 }
 
 int main(void) 
 {
 	int l;
-	char* s = "dvdf";
+	char* s = "pwwkew";
 	
 	l = lengthOfLongestSubstring(s);
 	
