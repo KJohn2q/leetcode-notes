@@ -9,7 +9,11 @@ int lengthOfLongestSubstring(char * s){
 	char *base;
 	int nowsize = 0;
 	
-	temp = (char *)malloc(2*sizeof(char)); 
+	if (*s == '\0') {
+		return 0;
+	} 
+	
+	temp = (char *)malloc(2*sizeof(char));
 	
 	*temp = *s; // *temp存储s的第一个字符 
 	*(temp+1) = '\0';
@@ -52,7 +56,7 @@ int lengthOfLongestSubstring(char * s){
 int main(void) 
 {
 	int l;
-	char* s = "pwwkew";
+	char* s = "dvdf";
 	
 	l = lengthOfLongestSubstring(s);
 	
